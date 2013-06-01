@@ -1,0 +1,40 @@
+
+==================================================
+ 環境構築手順
+==================================================
+
+1. Ruby, MySQL をインストール
+---------------------------------------------
+http://qiita.com/items/c9f3d8ca69a4ab0b27cb
+
+
+2. MySQLに、データベースを作成
+---------------------------------------------
+mysql> create database rensou;
+
+mysql> use rensou
+
+mysql> create table rensous ( id INT UNSIGNED NOT NULL AUTO_INCREMENT, keyword VARCHAR(20) NOT NULL, favorite INT NOT NULL, spam INT NOT NULL, is_delete BOOL NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id));
+
+
+3. 初期データを入れる
+---------------------------------------------
+mysql> insert into rensous values (1, 'banana', 0, 0, 0, now(), now());
+
+
+4. database.yml を設定する
+---------------------------------------------
+database.yml の "username", "password" に、MySQLのusername, password の値を設定する。
+
+
+5. bundle install をする
+---------------------------------------------
+bundle install --path vendor/bundle
+
+
+5. 実行する
+---------------------------------------------
+bundle exec ruby rensou.rb -o 0.0.0.0  &
+
+
+4567番ポートで起動される。終わり。
