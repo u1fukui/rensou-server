@@ -13,7 +13,7 @@ end
 get '/rensous.json' do
   content_type :json, :charset => 'utf-8'
 
-  rensous = Rensou.order("created_at DESC").limit(20)
+  rensous = Rensou.last()
   rensous.to_json(:root => false)
 end
 
@@ -40,12 +40,15 @@ post '/rensou.json' do
 
     # 保存
     rensou.save
-    
+
+    status 202
+
     # レスポンス生成
+    content_type :json, :charet => 'utf-8'
     rensous = Rensou.order("created_at DESC").limit(20)
     rensous.to_json(:root => false)
 
-    status 202  
+    #status 202
 
   rescue ActiveRecord::RecordNotUnique => e
   
