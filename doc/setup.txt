@@ -1,0 +1,72 @@
+my.cnfの読まれる場所を調べる
+
+$ mysql --help | grep my.cnf
+/etc/my.cnf /etc/mysql/my.cnf /usr/local/etc/my.cnf ~/.my.cnf
+
+
+==============================================================
+ データベース作成
+==============================================================
+
+mysql> create database rensou;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use rensou
+Database changed
+
+mysql> create table rensous ( id INT UNSIGNED NOT NULL AUTO_INCREMENT, keyword VARCHAR(20) NOT NULL, favorite INT, warning INT, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id));
+Query OK, 0 rows affected (0.03 sec)
+
+
+==============================================================
+ database.yml 設定
+==============================================================
+
+------------------------------
+development:
+  adapter: mysql2
+  database: rensou
+  host: localhost
+  username: root
+  password: whitediamond
+  encoding: utf8
+------------------------------
+
+adapterが、mysqlじゃなくてmysql2なのが戸惑った
+
+■参考
+MySQL用のデータベース設定ファイル(database.yml) - Ruby on Rails入門
+http://www.rubylife.jp/rails/model/index2.html
+
+RubyでMySQLに繋ぐためのruby-mysqlとmysql2 - tagomorisのメモ置き場
+http://d.hatena.ne.jp/tagomoris/20111210/1323502295
+
+==============================================================
+ Gemfile 設定
+==============================================================
+------------------------------
+# A sample Gemfile
+source "https://rubygems.org"
+
+gem "mysql2"
+gem "activerecord"
+------------------------------
+
+# 必要なGemfileをインストール
+MacBook-Pro13:server u1$ bundle install --path vendor/bundle
+
+# 実行
+MacBook-Pro13:server u1$ bundle exec ruby rensou.rb
+1
+banana
+
+#
+
+■参考
+bundlerでgemをプロジェクトごとに管理する ｜ Developers.IO
+http://dev.classmethod.jp/server-side/language/bundler-gem-management/
+
+Sinatra＋ActiveRecord＋SQLite3で，軽量なWeb-DB連携例 | tamo's blog
+http://tamosblog.wordpress.com/2012/10/26/sinatra/
+
+
