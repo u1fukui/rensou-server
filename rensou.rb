@@ -23,8 +23,6 @@ post '/rensou.json' do
   reqData = JSON.parse(request.body.read.to_s) 
   keyword = reqData['keyword']
   theme_id = reqData['theme_id']
-    
-  p theme_id
 
   # 保存データ作成
   rensou = Rensou.new
@@ -34,21 +32,18 @@ post '/rensou.json' do
   rensou.spam = 0
   rensou.is_delete = false
 
-  p rensou.id
-
   begin
 
     # 保存
     rensou.save
 
+    # レスポンスコード
     status 202
 
     # レスポンス生成
     content_type :json, :charet => 'utf-8'
     rensous = Rensou.order("created_at DESC").limit(20)
     rensous.to_json(:root => false)
-
-    #status 202
 
   rescue ActiveRecord::RecordNotUnique => e
   
