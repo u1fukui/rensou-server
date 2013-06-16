@@ -32,9 +32,12 @@ database.yml の "username", "password" に、MySQLのusername, password の値�
 bundle install --path vendor/bundle
 
 
-5. 実行する
+6. 実行する
 ---------------------------------------------
-bundle exec ruby rensou.rb -o 0.0.0.0  &
+bundle exec rackup -E production -p 4567 -D
 
+-E: 環境
+-p: 使用するポート番号を指定
+-D: バックグラウンドで実行
 
-4567番ポートで起動される。終わり。
+終わり。
