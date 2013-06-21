@@ -3,7 +3,7 @@ require 'sinatra/base'
 
 class RensouApp < Sinatra::Base
   # 最新連想を取得
-  get '/rensous.json' do
+  get '/rensou.json' do
     content_type :json, :charset => 'utf-8'
 
     rensous = Rensou.last()
@@ -31,17 +31,16 @@ class RensouApp < Sinatra::Base
       rensou.save
 
       # レスポンスコード
-      status 202
+      status 200
 
       # レスポンス生成
-      content_type :json, :charet => 'utf-8'
+      content_type :json, :charset => 'utf-8'
       rensous = Rensou.order("created_at DESC").limit(20)
       rensous.to_json(:root => false)
 
     rescue ActiveRecord::RecordNotUnique => e
 
       # 更新されていた
-      puts e
       status 400
 
     end
