@@ -1,4 +1,4 @@
-development:
+production:
   adapter: mysql2
   database: rensou 
   host: localhost
@@ -6,3 +6,10 @@ development:
   password: pass
   encoding: utf8
 
+development:
+  adapter: mysql2
+  database: rensou-dev 
+  host: localhost
+  username: root
+  password: pass
+  encoding: utf8
