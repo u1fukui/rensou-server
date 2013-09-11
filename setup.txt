@@ -14,12 +14,14 @@ mysql> create database rensou;
 
 mysql> use rensou
 
-mysql> create table rensous ( id INT UNSIGNED NOT NULL AUTO_INCREMENT, keyword VARCHAR(20) NOT NULL, favorite INT NOT NULL, spam INT NOT NULL, is_delete BOOL NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id));
+mysql> create table rensous ( id INT UNSIGNED NOT NULL AUTO_INCREMENT, user_id int NOT NULL, keyword VARCHAR(20) NOT NULL, old_keyword VARCHAR(20) NOT NULL, favorite INT NOT NULL, spam INT NOT NULL, is_delete BOOL NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id));
+
+mysql> create table users ( id INT NOT NULL AUTO_INCREMENT, device_type INT NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id));
 
 
 3. 初期データを入れる
 ---------------------------------------------
-mysql> insert into rensous values (1, 'banana', 0, 0, 0, now(), now());
+mysql> insert into rensous values (1, 0, 'banana', "start", 0, 0, 0, now(), now());
 
 
 4. database.yml を設定する
@@ -34,10 +36,11 @@ bundle install --path vendor/bundle
 
 6. 実行する
 ---------------------------------------------
-bundle exec rackup -E production -p 4567 -D
+bundle exec rackup -E production -p 4567
 
 -E: 環境
 -p: 使用するポート番号を指定
--D: バックグラウンドで実行
+
+バックグラウンドで実行したい時は、 "-D"オプションを付けましょう。
 
 終わり。

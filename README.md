@@ -6,6 +6,12 @@ iOSアプリ「連想げーむ」のサーバ側コードです。
 [https://itunes.apple.com/jp/app/minnade-jigeyou!sosharu-lian/id668351056?mt=8&ign-mpt=uo%3D4](https://itunes.apple.com/jp/app/minnade-jigeyou!sosharu-lian/id668351056?mt=8&ign-mpt=uo%3D4)
 
 
+実行方法
+----------
+1. setup.txt に書かれている手順通りにSinatraを起動して下さい。
+2. [アプリ側](https://github.com/u1fukui/rensou-ios) に書かれている実行手順を試して下さい。
+
+
 ライセンス
 ----------
 Copyright &copy; 2013 Yuichi Kobayashi
