@@ -9,8 +9,6 @@ class RensouApp < Sinatra::Base
   end
 
   post '/user' do
-    logger.info("userrrr")
-
     reqData = JSON.parse(request.body.read.to_s)
     device_type = reqData['device_type']
     
@@ -70,7 +68,7 @@ class RensouApp < Sinatra::Base
 
       # レスポンス生成
       content_type :json, :charset => 'utf-8'
-      rensous = Rensou.order("created_at DESC").limit(50)
+      rensous = Rensou.order("id DESC").limit(50)
       rensous.to_json(:root => false)
 
     rescue ActiveRecord::RecordNotUnique => e
