@@ -77,7 +77,7 @@ class RensouApp < Sinatra::Base
 
       # レスポンス生成
       content_type :json, :charset => 'utf-8'
-      rensous = Rensou.order("id DESC").limit(50)
+      rensous = Rensou.where(room_type: room).order("id DESC").limit(50)
       rensous.to_json(:root => false)
 
     rescue ActiveRecord::RecordNotUnique => e
