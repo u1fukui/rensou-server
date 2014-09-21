@@ -60,7 +60,7 @@ class RensouApp < Sinatra::Base
     rensou = Rensou.new
     rensou.keyword = keyword
     rensou.old_keyword = old_rensou.keyword
-    rensou.id = theme_id + 1
+    rensou.old_id = theme_id
     rensou.user_id = user_id
     rensou.favorite = 0
     rensou.spam = 0
