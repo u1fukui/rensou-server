@@ -23,8 +23,12 @@ class RensouApp < Sinatra::Base
   # 最新連想を取得
   get '/rensou.json' do
     content_type :json, :charset => 'utf-8'
+    room = params['room']
+    if room.nil? then
+      room = getDefaultRoomType()
+    end
 
-    rensous = Rensou.last()
+    rensous = Rensou.where(room_type: room).last()
     rensous.to_json(:root => false)
   end
 
@@ -39,8 +43,12 @@ class RensouApp < Sinatra::Base
     keyword = reqData['keyword']
     theme_id = reqData['theme_id']
     user_id = reqData['user_id']
+    room = reqData['room']
     if user_id.nil? then
       user_id = 0
+    end
+    if room.nil? then
+      room = getDefaultRoomType()
     end
 
     old_rensou = Rensou.find_by_id(theme_id)
@@ -57,6 +65,7 @@ class RensouApp < Sinatra::Base
     rensou.favorite = 0
     rensou.spam = 0
     rensou.is_delete = false
+    rensou.room_type = room
 
     begin
 
@@ -114,12 +123,17 @@ class RensouApp < Sinatra::Base
 
   # ランキング取得
   get '/rensous/ranking' do
+      room = params['room']
+      if room.nil? then
+        room = getDefaultRoomType()
+      end
+
       # レスポンスコード
       status 200
 
       # レスポンス生成
       content_type :json, :charset => 'utf-8'
-      rensous = Rensou.order("favorite DESC").limit(10)
+      rensous = Rensou.where(room_type: room).order("favorite DESC").limit(10)
       rensous.to_json(:root => false)
   end
 
@@ -127,6 +141,10 @@ class RensouApp < Sinatra::Base
   error do |e|
     status 500
     logger.error e
+  end
+
+  def getDefaultRoomType
+    return 5	# 秘密の部屋
   end
 
 end
